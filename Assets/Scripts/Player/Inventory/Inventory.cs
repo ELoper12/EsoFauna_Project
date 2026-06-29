@@ -79,7 +79,7 @@ public class Inventory : Singleton<Inventory>
     public void AddItem(ItemSO addItem, int amount)
     {
         int remaining = amount;
-        foreach(Slot slot in allSlots)//추가하려는 아이템이 있는 지에 대한 검증( 잘됨)
+        foreach(Slot slot in allSlots)//추가하려는 아이템이 있는 지에 대한 검증
         {
             
             if (slot.currentItem == addItem)
@@ -101,7 +101,7 @@ public class Inventory : Singleton<Inventory>
                 }
             }
         }
-        //추가하려는 아이템이 없을 떄 빈 인벤토리 창에 추가되는 지에 대한 확인(잘 됨)
+        //추가하려는 아이템이 없을 떄 빈 인벤토리 창에 추가되는 지에 대한 확인
         foreach(Slot slot in allSlots)
         {
             if (!slot.HasItem())
@@ -127,7 +127,7 @@ public class Inventory : Singleton<Inventory>
     private void StartDrag()
     {
         
-         Slot hovered = GetHoveredSlot();
+        Slot hovered = GetHoveredSlot();
             
         if (hovered != null && hovered.HasItem())
             {
@@ -217,42 +217,6 @@ public class Inventory : Singleton<Inventory>
         if (isDragging)
         {
             dragIcon.rectTransform.position = Input.mousePosition;
-        }
-    }
-
-    private void PickUp()
-    {
-        if(lookedAtRenderer != null && Input.GetKeyDown(KeyCode.F))
-        {
-            Item item = lookedAtRenderer.GetComponent<Item>();
-            if(item!= null)
-            {
-                AddItem(item.item, item.amount);
-                Destroy(item.gameObject);
-            }
-        }
-    }
-    private void DetectLookedItem()
-    {
-        if (lookedAtRenderer != null) ;
-        {
-            lookedAtRenderer.material = originalMaterial;
-            lookedAtRenderer = null;
-            originalMaterial = null;
-        }
-        Ray ray = new Ray(Camera.main.transform.position, Camera.main.transform.forward);
-        if(Physics.Raycast(ray, out RaycastHit hit, pickupRange))
-        {
-            Item item = hit.collider.GetComponent<Item>();
-            if(item != null)
-            {
-                Renderer rend = item.GetComponent<Renderer>();
-                if(rend != null) {
-                    originalMaterial = rend.material;
-                    rend.material = highlightMaterial;
-                    lookedAtRenderer = rend;
-                }
-            }
         }
     }
 }

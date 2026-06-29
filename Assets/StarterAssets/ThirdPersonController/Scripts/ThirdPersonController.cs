@@ -129,8 +129,9 @@ namespace StarterAssets
         }
 
 
-        private void Awake()
+        protected override void Awake()
         {
+            base.Awake();
             // 메인 카메라 참조
             if (_mainCamera == null)
             {

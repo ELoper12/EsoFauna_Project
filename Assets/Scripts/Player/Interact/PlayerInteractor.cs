@@ -28,11 +28,9 @@ public class PlayerInteractor : MonoBehaviour
         Vector3 origin = mainCamera.transform.position;
         Vector3 direction = mainCamera.transform.forward;
 
-        if (Physics.Raycast(origin, direction, out RaycastHit hit, interactDistance, interactLayer))
+        if (Physics.Raycast(origin, direction, out RaycastHit hit, interactDistance, interactLayer))//레이캐스트로 인식
         {
-            Debug.DrawRay(origin, direction*interactDistance, Color.red);
-        
-        currentTarget = hit.collider.GetComponent<IInteractable>();
+            currentTarget = hit.collider.GetComponent<IInteractable>();
         }
     }
 
